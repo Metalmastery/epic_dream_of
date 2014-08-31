@@ -3,72 +3,29 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+
+	ofSetFrameRate(60);
+	ofBackground(0);
+
+	ofEnableAlphaBlending();
+	ofDisableArbTex();
+
 	// Define the gravity vector.
 	b2Vec2 gravity(0.0f, 0.0f);
 
 	// Construct a world object, which will hold and simulate the rigid bodies.
 	world = new b2World(gravity);
 
-	// //Define the ground body.
-	//b2BodyDef groundBodyDef;
-	//groundBodyDef.position.Set(0.0f, 150.0f);
-
-	// //Call the body factory which allocates memory for the ground body
-	// //from a pool and creates the ground box shape (also from a pool).
-	// //The body is also added to the world.
-	//b2Body* groundBody = world->CreateBody(&groundBodyDef);
-
-	// //Define the ground box shape.
-	//b2PolygonShape groundBox;
-
-	// //The extents are the half-widths of the box.
-	//groundBox.SetAsBox(50.0f, 10.0f);
-	//
-	// //Add the ground fixture to the ground body.
-	//groundBody->CreateFixture(&groundBox, 0.0f);
-
-	//b2BodyDef bodyDef;
-	//bodyDef.type = b2_dynamicBody;
-	//bodyDef.position.Set(0.0f, 0.0f);
-	////bodyDef.linearVelocity.Set(0.5f, 0.0f);
-
-	//boxOne = world->CreateBody(&bodyDef);
-
-	//b2PolygonShape dynamicBox;
-	//dynamicBox.SetAsBox(10.0f, 10.0f);
-
-	//b2FixtureDef fixtureDef;
-	//fixtureDef.shape = &dynamicBox;
-
-	//fixtureDef.density = 1.0f;
-
-	//fixtureDef.friction = 0.3f;
-
-	//boxOne->CreateFixture(&fixtureDef);
-
-	//b2BodyDef bodyDef2;
-	//bodyDef2.type = b2_dynamicBody;
-	//bodyDef2.position.Set(300.0f, 119.0f);
-
-	//boxTwo = world->CreateBody(&bodyDef2);
-
-	//b2PolygonShape dynamicBox2;
-	//dynamicBox2.SetAsBox(10.0f, 10.0f);
-
-	//b2FixtureDef fixtureDef2;
-	//fixtureDef2.shape = &dynamicBox2;
-
-	//fixtureDef2.density = 1.0f;
-
-	//fixtureDef2.friction = 0.3f;
-
-	//boxTwo->CreateFixture(&fixtureDef2);
-
 	ship = new test_ship(0.0f, 0.0f, world);
+
+	engine = engineParticles();
 
 	ships.push_back(ship);
 
-	//ships.push_back(new test_ship(0.0f, 0.0f, world));
+	int amount = 0;
+	for(int i = 0; i < amount; i++){
+		ships.push_back(new test_ship(ofRandom(100) - 50, ofRandom(100) - 50, world));
+	}
 
 	printf("vec size %i", ships.size());
 	// Prepare for simulation. Typically we use a time step of 1/60 of a
@@ -82,17 +39,27 @@ void ofApp::setup(){
 	
 	scale = ofVec3f(10.0f, 10.0f, 1.0f);
 
+	parameters.setName("settings");
+	parameters.add((*ship).parameters);
+
+	gui.setup(parameters);
+
+	//gui.loadFromFile("settings.xml");
+
+	font.loadFont( OF_TTF_SANS,9,true,true);
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
 	
 		world->Step(0.016f, 6, 2);
-		//world->ClearForces();
+		//world->ClearForces();
+
 		for(int i = 0; i < ships.size(); i++){
 			ships[i]->update();
 		}
-		
+		//engine.emit(ship->position, ship->position);
 }
 
 //--------------------------------------------------------------
@@ -102,10 +69,20 @@ void ofApp::draw(){
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		ofScale(scale.x, scale.y, scale.z);
 
+		ofSetHexColor(0xff0000);
+		ofCircle(mousePosition.x, mousePosition.y, 0, 1.0f);
+		
+		engine.draw();
 		for(int i = 0; i < ships.size(); i++){
 			ships[i]->draw();
 		}
+		
 	ofPopMatrix();
+
+	gui.draw();
+	ofSetHexColor(0xffffff);
+	font.drawString("fps: " + ofToString((int)ofGetFrameRate()),ofGetWidth()-150,40);
+	//font.drawString("impulse: " + ofToString((float)ship->linearImpulse.get()),ofGetWidth()-150,60);
 	
 }
 
@@ -126,7 +103,7 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	
+	engine.emit(ofPoint((x - ofGetWidth() / 2) / scale.x, (y - ofGetHeight() / 2) / scale.y), 90.0);	
 }
 
 //--------------------------------------------------------------
@@ -140,6 +117,7 @@ void ofApp::mouseReleased(int x, int y, int button){
 	for(int i = 0; i < ships.size(); i++){
 		ships[i]->setMovementTarget(mousePosition);
 	}
+	engine.emit(mousePosition, 90.0);
 }
 
 //--------------------------------------------------------------

@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include <Box2D/Box2D.h>
 
+#include "engineParticles.h"
+
 class test_ship
 {
 public:
@@ -20,6 +22,19 @@ public:
 
 	b2Body* body;
 	b2PolygonShape shape;
+	engineParticles engine;
+
+	// gui staff
+	ofParameterGroup parameters;
+	ofParameter<float> linearImpulse;
+	ofParameter<float> rotationImpulse;
+	ofParameter<float> maxLinearSpeed;
+	ofParameter<float> maxRotationSpeed;
+	ofParameter<bool> drift;
+	ofParameter<bool> parktronic;
+	ofParameter<int> rotationTolerance;
+	ofParameter<int> distanceTolerance;
+	// gui staff
 
 	void draw();
 	void update();

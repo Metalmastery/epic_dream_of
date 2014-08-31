@@ -1,9 +1,12 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
+
 #include <Box2D/Box2D.h>
 
 #include "test_ship.h"
+#include "engineParticles.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,10 +25,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-		b2Body* boxOne;
-		b2Body* boxTwo;
 
 		test_ship* ship;
+
+		engineParticles engine;
 
 		b2World* world;
 		ofVec2f mousePosition;
@@ -33,4 +36,11 @@ class ofApp : public ofBaseApp{
 		ofVec3f scale;
 
 		vector<test_ship*> ships;
+
+		// gui staff
+		ofxPanel gui;
+		ofParameter<bool> vSync;
+		ofParameterGroup parameters;
+		ofXml settings;
+		ofTrueTypeFont font;
 };
