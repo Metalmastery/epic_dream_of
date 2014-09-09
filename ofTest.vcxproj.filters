@@ -31,12 +31,28 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
       <Filter>addons\ofxGUI</Filter>
     </ClCompile>
-    <ClCompile Include="src\test_ship.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\debugDraw.cpp">
+      <Filter>src\debugDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coreUtils.cpp">
+      <Filter>src\utils</Filter>
     </ClCompile>
     <ClCompile Include="src\engineParticles.cpp">
+      <Filter>src\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\nebula.cpp">
+      <Filter>src\nebula</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_ship.cpp">
+      <Filter>src\ship</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shipContactListener.cpp">
+      <Filter>src\contactListener</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gameObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\bulletManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -47,6 +63,24 @@
     </Filter>
     <Filter Include="addons\ofxGUI">
       <UniqueIdentifier>{a4a1622a-3d9c-41ae-8af5-dbd5b6d1b5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\debugDraw">
+      <UniqueIdentifier>{57ecb88d-ae3b-486a-8039-90282d1bb6f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utils">
+      <UniqueIdentifier>{574ce720-9098-4f0f-9f09-94ce068692f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\particles">
+      <UniqueIdentifier>{6a0dc0da-f3de-4f14-92ad-516e9fd4c70f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\nebula">
+      <UniqueIdentifier>{55e1a347-c19d-4b0c-85c9-db5ac3215c96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ship">
+      <UniqueIdentifier>{7515d96a-d37f-46e4-b1d5-96d13d440a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\contactListener">
+      <UniqueIdentifier>{b7f360eb-b079-484c-be23-9d50d686da07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -80,12 +114,28 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
       <Filter>addons\ofxGUI</Filter>
     </ClInclude>
-    <ClInclude Include="src\test_ship.h">
-      <Filter>src</Filter>
+    <ClInclude Include="src\debugDraw.h">
+      <Filter>src\debugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\coreUtils.h">
+      <Filter>src\utils</Filter>
     </ClInclude>
     <ClInclude Include="src\engineParticles.h">
+      <Filter>src\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="src\nebula.h">
+      <Filter>src\nebula</Filter>
+    </ClInclude>
+    <ClInclude Include="src\test_ship.h">
+      <Filter>src\ship</Filter>
+    </ClInclude>
+    <ClInclude Include="src\shipContactListener.h">
+      <Filter>src\contactListener</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameObject.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\bulletManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

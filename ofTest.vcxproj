@@ -102,9 +102,15 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="src\bulletManager.cpp" />
+    <ClCompile Include="src\coreUtils.cpp" />
+    <ClCompile Include="src\debugDraw.cpp" />
     <ClCompile Include="src\engineParticles.cpp" />
+    <ClCompile Include="src\gameObject.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\nebula.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="src\shipContactListener.cpp" />
     <ClCompile Include="src\test_ship.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -117,8 +123,14 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="src\bulletManager.h" />
+    <ClInclude Include="src\coreUtils.h" />
+    <ClInclude Include="src\debugDraw.h" />
     <ClInclude Include="src\engineParticles.h" />
+    <ClInclude Include="src\gameObject.h" />
+    <ClInclude Include="src\nebula.h" />
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="src\shipContactListener.h" />
     <ClInclude Include="src\test_ship.h" />
   </ItemGroup>
   <ItemGroup>

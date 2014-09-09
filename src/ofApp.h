@@ -8,6 +8,10 @@
 #include "test_ship.h"
 #include "engineParticles.h"
 
+#include "shipContactListener.h"
+
+#include "debugDraw.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -26,8 +30,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 
-		test_ship* ship;
-
 		engineParticles engine;
 
 		b2World* world;
@@ -36,6 +38,9 @@ class ofApp : public ofBaseApp{
 		ofVec3f scale;
 
 		vector<test_ship*> ships;
+
+		shipContactListener listener;
+
 
 		// gui staff
 		ofxPanel gui;

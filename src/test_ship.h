@@ -5,9 +5,12 @@
 
 #include "engineParticles.h"
 
+
 class test_ship
 {
 public:
+
+	bool isAlive;
 
 	ofVec2f position;
 	float32 impulse;
@@ -41,6 +44,7 @@ public:
 	void rotate();
 	void accelerate();
 	void move();
+	void startContact();
 
 	void setMovementTarget(ofVec2f target, ofVec2f tolerance = ofVec2f(1,1));
 

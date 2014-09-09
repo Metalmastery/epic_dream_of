@@ -3,6 +3,9 @@
 
 test_ship::test_ship(float32 x, float32 y, b2World* world)
 {
+	printf("create ship \n");
+	this->isAlive = true;
+
 	this->position.set(x, y);
 	this->size.set(0.3f, 0.3f);
 	this->rotation = 0.0f;
@@ -59,7 +62,10 @@ test_ship::test_ship(float32 x, float32 y, b2World* world)
 
 test_ship::~test_ship(void)
 {
-	this->body->GetWorld()->DestroyBody(this->body);
+	printf("remove ship \n");
+	if (this->body != NULL) {
+		//this->body->GetWorld()->DestroyBody(this->body);
+	}
 }
 
 void test_ship::draw()
@@ -206,5 +212,10 @@ void test_ship::setMovementTarget(ofVec2f target, ofVec2f tolerance)
 {
 	this->hasMovementTarget = true;
 	this->movementTarget = target;
+}
+
+void test_ship::startContact()
+{
+	//this->isAlive = false;
 }
 	

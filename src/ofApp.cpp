@@ -1,6 +1,9 @@
 #include "ofApp.h"
 #include <stdio.h>
 
+#include "coreUtils.h"
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
 
@@ -10,19 +13,11 @@ void ofApp::setup(){
 	ofEnableAlphaBlending();
 	ofDisableArbTex();
 
-	// Define the gravity vector.
-	b2Vec2 gravity(0.0f, 0.0f);
-
-	// Construct a world object, which will hold and simulate the rigid bodies.
-	world = new b2World(gravity);
-
-	ship = new test_ship(0.0f, 0.0f, world);
+	world = getB2DWorld();
 
 	engine = engineParticles();
 
-	ships.push_back(ship);
-
-	int amount = 0;
+	int amount = 3;
 	for(int i = 0; i < amount; i++){
 		ships.push_back(new test_ship(ofRandom(100) - 50, ofRandom(100) - 50, world));
 	}
@@ -40,14 +35,25 @@ void ofApp::setup(){
 	scale = ofVec3f(10.0f, 10.0f, 1.0f);
 
 	parameters.setName("settings");
-	parameters.add((*ship).parameters);
+	parameters.add(ships[0]->parameters);
 
 	gui.setup(parameters);
 
 	//gui.loadFromFile("settings.xml");
 
 	font.loadFont( OF_TTF_SANS,9,true,true);
+
+	listener = shipContactListener();
+
+	world->SetContactListener((b2ContactListener*)new shipContactListener());
+
+	debugDraw* debug = new debugDraw();
+
+	world->SetDebugDraw(debug);
 	
+	debug->SetFlags(b2Draw::e_shapeBit);
+	
+
 }
 
 //--------------------------------------------------------------
@@ -55,10 +61,22 @@ void ofApp::update(){
 	
 		world->Step(0.016f, 6, 2);
 		//world->ClearForces();
+		getBulletManager()->update(0.016f);
 
 		for(int i = 0; i < ships.size(); i++){
-			ships[i]->update();
+			if (!ships[i]->isAlive){
+				delete ships[i];
+				ships.erase(ships.begin() + i);
+			} else {
+				ships[i]->update();
+			}
 		}
+
+		//for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+		//{
+		//	b2Vec2 pos = b->GetPosition();
+		//	engine.emit(ofVec3f(pos.x, pos.y, 0), 0);
+		//}
 		//engine.emit(ship->position, ship->position);
 }
 
@@ -68,6 +86,8 @@ void ofApp::draw(){
 	ofPushMatrix();
 	ofTranslate(ofGetWidth() / 2, ofGetHeight() / 2);
 		ofScale(scale.x, scale.y, scale.z);
+
+		world->DrawDebugData();
 
 		ofSetHexColor(0xff0000);
 		ofCircle(mousePosition.x, mousePosition.y, 0, 1.0f);
@@ -108,11 +128,17 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-
+	if (button == 0){
+		return;
+	}
+	getBulletManager()->fire(*ships[0]);
 }
 /////////-p02123w
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
+	if (button != 0){
+		return;
+	}
 	mousePosition.set((x - ofGetWidth() / 2) / scale.x, (y - ofGetHeight() / 2) / scale.y);
 	for(int i = 0; i < ships.size(); i++){
 		ships[i]->setMovementTarget(mousePosition);
